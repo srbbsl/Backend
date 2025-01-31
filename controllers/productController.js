@@ -1,9 +1,8 @@
 
 
-export const getAllProduct = (req, res) => {
+export const getAllProducts = (req, res) => {
     return res.status(200).json({
-        status: 'Success',
-        message: 'products'
+        status:"Success",
+        message: "Products"
     });
-};
-
+}
