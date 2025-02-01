@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 
 const app = express();
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.del0k.mongodb.net/Shop').then((val) => {
+mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/Shop').then((val) => {
     console.log('Database connected successfully');
     console.log('MongoDB Connection State:', mongoose.connection.readyState);
     app.listen(5000, () => {
