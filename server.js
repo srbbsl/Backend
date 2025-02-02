@@ -3,7 +3,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import mongoose from "mongoose";
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/shop').then((val) => {
+mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/shop2').then((val) => {
     app.listen(5000, () => {
         console.log('Server is running');
     });
