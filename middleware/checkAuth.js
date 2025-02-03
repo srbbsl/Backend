@@ -23,7 +23,7 @@ export const checkAdmin = (req, res, next) => {
     } else {
         return res.status(401).json({
         message: 'unauthorized'
-        })    
+        });    
         
     };
 
