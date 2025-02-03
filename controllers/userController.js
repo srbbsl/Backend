@@ -10,22 +10,23 @@ export const userLogin = async (req, res) => {
   try {
 
     const isExist = await User.findOne({ email: email });
-    const passCom = bcrypt.compareSync(password, isExist.password);
-    const token = jwt.sign({
-        id: isExist._id.role
-    }, 'secret');
-
+    
     if (!isExist) {
       return res.status(401).json({
         message: 'invalid credential'
       });
     };
 
-    
+    const passCom = bcrypt.compareSync(password, isExist.password);
     if (!passCom) return res.status(401).json({
         message: 'invalid credential'
     });
- 
+
+    const token = jwt.sign({
+        userId: isExist._id,
+        role: isExist.role,
+    }, 'secret');
+
     return res.status(200).json({
      message: 'user succesfully login',
      data: {
