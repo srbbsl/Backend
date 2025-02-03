@@ -1,6 +1,7 @@
 import { User } from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
 
 
 export const userLogin = async (req, res) => {
@@ -11,7 +12,7 @@ export const userLogin = async (req, res) => {
     const isExist = await User.findOne({ email: email });
     const passCom = bcrypt.compareSync(password, isExist.password);
     const token = jwt.sign({
-        id: isExist._id
+        id: isExist._id.role
     }, 'secret');
 
     if (!isExist) {
@@ -29,8 +30,7 @@ export const userLogin = async (req, res) => {
      message: 'user succesfully login',
      data: {
         token,
-        email: isExist.email,
-     }
+       }
     });
   } catch (err) {
     return res.status(400).json({
@@ -70,4 +70,24 @@ export const userRegister = async (req, res) => {
         });
     }
     
+};
+
+export const getUserProfile = async (req, res) => {
+    // console.log(req.params);
+    const { id } = req.params;
+
+    try {
+        if(!mongoose.isValidObjectId(id)) return res.status(400).json({
+            message: 'please provide valid id',
+        });
+        const user = await User.findById(id).select('-password'); //(username email) - matra auxa (-username -password)
+        if(!user) return res.status(404).json({
+            message: 'user not found',
+        });
+        return res.status(200).json(user);
+    } catch (err) {
+        return res.status(400).json({
+            message: `${err}`,
+        });
+    };
 };
