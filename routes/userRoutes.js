@@ -7,15 +7,16 @@ const router = express.Router();
 
 const validator = validate.createValidator();
 
-const loginSchema = Joi.object({
+const common = {
     email: Joi.string().email().required(),
     password: Joi.string().required(),
-});
+};
+
+const loginSchema = Joi.object({...common})
 
 const registerSchema = Joi.object({
-    username: Joi.string().min(5).max(20).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
+    username: Joi.string().min(4).max(20).required(),
+    ...common,
 });
 
 router.route('/login').post(validator.body(loginSchema), userLogin);

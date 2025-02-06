@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Product } from "../models/Product.js";
 import fs from 'fs';
 
@@ -40,4 +41,31 @@ export const createProduct = async (req, res) => {
         
     };
    
+};
+
+export const removeProduct = async (req, res) => {
+    const { id } = req.params;
+    try {
+        if (!mongoose.isValidObjectId(id)) return res.status(400).json({
+            message: 'please proviede valid id',
+        });
+
+        const isExist = await Product.findById(id);
+        if(!isExist) return res.status(404).json({
+            message: 'product not found',
+        });
+
+        await Product.findByIdAndDelete(id);
+
+        fs.unlink(`./uploads/${isExist.image}`, (e) => {
+            return res.status(200).json({
+                message: 'product removed succesfully',
+            });
+        });
+
+    } catch (err) {
+        return res.status(400).json({
+            message: `${err}`,
+        });
+    };
 };
