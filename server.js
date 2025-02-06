@@ -6,11 +6,7 @@ import fileUpload from 'express-fileupload';
 
 const app = express();
 
-app.use(express.json());
-app.use(fileUpload({
-    limits: { fileSize: 5 * 1024 * 1024 },
-    abortOnLimit: true,
-  }));
+
 
 mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/Shop').then((val) => {
     console.log('Database connected successfully');
@@ -21,6 +17,13 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/Shop').th
 }).catch((err) => {
     console.log(err)
 });
+
+app.use(express.json());
+
+app.use(fileUpload({
+    limits: { fileSize: 5 * 1024 * 1024 },
+    abortOnLimit: true,
+  }));
 
 app.get('/', (req, res) => {
     return res.status(200).json({

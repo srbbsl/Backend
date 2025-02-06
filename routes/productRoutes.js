@@ -5,6 +5,6 @@ import { checkFile } from '../middleware/checkFile.js';
 
 const router = express.Router();
 
-router.route('/').get(checkUser, checkAdmin, getAllProduct).post(checkFile, createProduct);
+router.route('/').get(getAllProduct).post(checkFile, createProduct);
 
 export default router;
