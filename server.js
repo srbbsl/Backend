@@ -20,6 +20,8 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/Shop').th
 
 app.use(express.json());
 
+app.use(express.static('./uploads'));
+
 app.use(fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 },
     abortOnLimit: true,
