@@ -5,7 +5,7 @@ export const checkUser = (req, res, next) => {
     // console.log(req.headers);
     const token = req.headers.authorization;
     const decode = jwt.decode(token, 'secret');
-    console.log(decode);
+    // console.log(decode);
 
     if(!decode) return res.status(401).json({
         message: 'unathorized',

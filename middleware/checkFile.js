@@ -23,3 +23,7 @@ export const checkFile = (req, res, next) => {
     };
 
 };
+
+export const updateFile = (req, res, next) => {
+    const file = req.files?.image;
+};

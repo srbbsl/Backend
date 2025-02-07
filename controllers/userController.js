@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 
 
 export const userLogin = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const { email, password } = req.body;
   try {
 
@@ -42,7 +42,7 @@ export const userLogin = async (req, res) => {
 };
 
 export const userRegister = async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const {username, email, password} = req.body;
     try {
         const isExist = await User.findOne({email: email});
