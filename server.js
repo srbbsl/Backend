@@ -3,6 +3,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
+import cors from 'cors'
 
 const app = express();
 
@@ -17,6 +18,11 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/Shop').th
 }).catch((err) => {
     console.log(err)
 });
+
+app.use(cors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+}));
 
 app.use(express.json());
 
