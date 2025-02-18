@@ -9,11 +9,12 @@ import mongoose from 'mongoose';
 const app = express();
 
 mongoose.connect(process.env.MONGO_URL).then((val) => {
+        console.log('Database connect susscessfully')
         app.listen(5000, () => {
-        console.log('Database connect susscessfully');
+        console.log('Server is running');
     });
     }).catch((err) => {
-    console.log(err)
+        console.log(err)
 });
 
 
@@ -27,6 +28,6 @@ app.get('/', (req, res) => {
 
 app.use('/api/products', productRoutes);
 
-app.use('/api', loginRoutes);
+app.use('/api/users', loginRoutes);
 
 app.use('/api', registerRoutes);
