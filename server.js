@@ -1,15 +1,23 @@
 import express from 'express';
-import { products } from './products.js';
+import productRoutes from './routes/productRoutes.js';
+import loginRoutes from './routes/authRoutes.js';
+import registerRoutes from './routes/authRoutes.js';
+
 
 const app = express();
 
 app.listen(5000, () => {
-    console.log('listening');
+    console.log('Database connect susscessfully');
 });
 
 app.get('/', (req, res) => {
-    const { price } = req.query;
-    const getPrice = products.filter((product) => product.price >= price)
-    return res.status(200).json(getPrice)
-    
-})
+    return res.status(200).json({
+        message: 'localhost 5000'
+    });
+});
+
+app.use('/api/products', productRoutes);
+
+app.use('/api', loginRoutes);
+
+app.use('/api', registerRoutes);
