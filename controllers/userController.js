@@ -2,11 +2,18 @@ import { User } from "../model/User.js";
 
 
 export const userLogin = async (req, res) => {
-    const users = await User.find();
-    return res.status(200).json({
-        message: 'userLogin',
-        users,
-    });
+    const { email, password } = req.body;
+    try {
+        return res.status(200).json({
+                message: 'login successfully',
+            });
+    } catch (err) {
+        res.status(400).json({
+            message: `${err}`,
+        });
+    }
+    
+    
 };
 
 export const userRegister = async (req, res) => {
@@ -15,7 +22,7 @@ export const userRegister = async (req, res) => {
         await User.create({
             username,
             email,
-            password
+            password,
         })
         return res.status(201).json({
                 message: 'registered successfully',

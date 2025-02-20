@@ -10,9 +10,9 @@ const userSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
-    passsord: {
+    password: {
         type: String,
-        
+        required: true,
     },
 }, { timestamps: true });
 
