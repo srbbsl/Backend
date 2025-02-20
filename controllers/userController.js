@@ -1,12 +1,32 @@
 import { User } from "../model/User.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 
 export const userLogin = async (req, res) => {
     const { email, password } = req.body;
     try {
+        const isExist = await User.findOne({ email: email })
+        if (!isExist) return res.status(401).json({
+            message: 'user does not exist',
+        });
+
+        const checkPassword = bcrypt.compareSync(password, isExist.password);
+        if (!checkPassword) return res.status(401).json({
+            message: 'wrong password',
+        });
+
+        const token = jwt.sign({
+            userId: isExist._id,
+            role: isExist.role,
+        }, process.env.SECRET);
+
         return res.status(200).json({
                 message: 'login successfully',
+                data: {
+                    token,
+                    role: isExist.role,
+                }
             });
     } catch (err) {
         res.status(400).json({
