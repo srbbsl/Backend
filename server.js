@@ -9,7 +9,7 @@ import mongoose from 'mongoose';
 const app = express();
 
 app.listen(5000, () => {
-    console.log('Server is lintening');
+    console.log('Server is listening');
 });
 
 mongoose.connect(process.env.MONGO_URL).then((val) => {
