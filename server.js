@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGO_URL).then((val) => {
     console.log(err);
 });
 
-
+app.use(express.json());
 
 app.get('/', (req, res) => {
     res.status(200).json({
