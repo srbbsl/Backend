@@ -1,9 +1,10 @@
 import express from 'express';
-import { getAllProducts } from '../controllers/productController.js';
+import { getAllProducts, addProduct } from '../controllers/productController.js';
+import { fileCheck } from '../middleware/fileCheck.js';
 
 
 const router = express.Router();
 
-router.route('/products').get(getAllProducts);
+router.route('/').get(getAllProducts).post(fileCheck, addProduct);
 
 export default router;

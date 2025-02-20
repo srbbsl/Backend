@@ -3,6 +3,7 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import 'dotenv/config';
 import mongoose from 'mongoose';
+import fileUpload from 'express-fileupload';
 
 
 
@@ -19,6 +20,10 @@ mongoose.connect(process.env.MONGO_URL).then((val) => {
 });
 
 app.use(express.json());
+app.use(fileUpload({
+    limits: { fileSize: 5 * 1024 * 1024 },
+    abortOnLimit: true,
+}));
 
 app.get('/', (req, res) => {
     res.status(200).json({
@@ -26,5 +31,5 @@ app.get('/', (req, res) => {
     });
 });
 
-app.use('/api', productRoutes);
+app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
