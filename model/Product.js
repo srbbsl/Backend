@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const productSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -19,10 +20,9 @@ const productSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['electronics', 'jewelery', 'clothing\'s'],
+        // enum: ['electronics', 'jewelery', 'clothing\'s'], // validator ma gareko xa
         required: true,
     },
 }, { timestamps: true });
-
 
 export const Product = mongoose.model('Product', productSchema);

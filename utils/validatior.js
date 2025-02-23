@@ -1,7 +1,8 @@
-import Joi from "joi";
+import Joi from 'joi';
 import validator from 'express-joi-validation';
 
-export const validate =  validator.createValidator({});
+
+export const validate = validator.createValidator({});
 
 const authSchema = {
     email: Joi.string().email().required(),
@@ -20,6 +21,6 @@ export const registerSchema = Joi.object({
 export const productSchema = Joi.object({
     title: Joi.string().required(),
     description: Joi.string().required(),
-    price: Joi.number().required(),
-    category: Joi.string().valid('electronics', 'jewelery', 'clothing\'s').required(),
-});
+    price: Joi.string().required(),
+    category: Joi.string().valid('electronics', 'jewelery', 'clothing\'s' ).required(),
+})
