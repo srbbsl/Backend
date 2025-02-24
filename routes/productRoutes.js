@@ -1,6 +1,6 @@
 import express from 'express';
-import { getAllProduct, addProduct, removeProduct } from '../controllers/productController.js';
-import { fileCheck } from '../middleware/fileCheck.js';
+import { getAllProduct, addProduct, removeProduct, updateProduct } from '../controllers/productController.js';
+import { fileCheck, updateFileCheck } from '../middleware/fileCheck.js';
 import { productSchema, validate } from '../utils/validatior.js';
 
 
@@ -11,6 +11,7 @@ router.route('/')
     .post(validate.body(productSchema), fileCheck, addProduct);
 
 router.route('/:id')
+    .patch(validate.body(productSchema), updateFileCheck, updateProduct)
     .delete(removeProduct);
 
 export default router;
