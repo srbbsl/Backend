@@ -4,6 +4,8 @@ import userRoutes from './routes/userRoutes.js';
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
+import cors from 'cors';
+
 
 const app = express();
 
@@ -17,6 +19,9 @@ mongoose.connect(process.env.MONGO_URL).then((val) => {
     console.log(err);
 });
 
+app.use(cors({
+    origin: ['http://localhost:3000'],
+}));
 
 app.use(express.json());
 
