@@ -33,11 +33,6 @@ app.use(fileUpload({
 app.use(express.static('uploads'));
 
 
-// app.get('/', (req, res) => {
-//     return res.status(200).json({
-//         message: 'baseUrl',
-//     });
-// });
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
