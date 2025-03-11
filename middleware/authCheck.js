@@ -11,6 +11,6 @@ export const authCheck = (req, res, next) => {
 };
 
 export const adminCheck = (req, res, next) => {
-    if(req.role !== 'admin') return res.status(401).json({ message: 'Unauthorized '})
+    if(req.role !== 'admin') return res.status(401).json({ message: 'Unauthorized-only admin can access this route'})
     next();
 };
