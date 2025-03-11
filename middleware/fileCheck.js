@@ -21,57 +21,58 @@ export const fileCheck = (req, res, next) => {
     
 };
 
-// export const updateFileCheck =  (req, res, next) => {
+
+// export const updateFileCheck = async (req, res, next) => {
+//     const { id } = req.params;
+    
+//     // 🔹 Validate ID before handling file
+//     if (!mongoose.isValidObjectId(id)) {
+//         return res.status(400).json({ message: 'Please provide a valid ID' });
+//     }
+
+//     // 🔹 Check if product exists
+//     const product = await Product.findById(id);
+//     if (!product) {
+//         return res.status(404).json({ message: 'Product not found' });
+//     }
+
+//     req.product = product; // Store product in request for later use in updateProduct
+
 //     const file = req.files?.image;
-//     if(!file) return next();
-    
-//     if(!imageTypes.includes(file.mimetype)) return res.status(400).json({
-//         message: 'provide valid image type',
-//     });
+//     if (!file) return next(); // No image provided, move to next middleware
 
-//     const imagePath = `/${uuidv4()}-${file.name}`;    
+//     if (!imageTypes.includes(file.mimetype)) {
+//         return res.status(400).json({ message: 'Provide a valid image type' });
+//     }
 
-//     file.mv(`./uploads${imagePath}`, (err) => {
-//         if(err) return res.status(400).json({
-//             message: `${err}`,    
-//         });
-//         req.imagePath = imagePath; //req object ma naya key ra value add gareko
-//         return next();  
-//     });
+//     const imagePath = `/${uuidv4()}-${file.name}`;
 
-//     };
+//     // 🔹 Move image only if product is valid
+//     try {
+//         await file.mv(`./uploads${imagePath}`);
+//         req.imagePath = imagePath;
+//         return next();
+//     } catch (err) {
+//         return res.status(500).json({ message: `Error uploading image: ${err}` });
+//     }
+// };
 
-export const updateFileCheck = async (req, res, next) => {
-    const { id } = req.params;
-    
-    // 🔹 Validate ID before handling file
-    if (!mongoose.isValidObjectId(id)) {
-        return res.status(400).json({ message: 'Please provide a valid ID' });
-    }
-
-    // 🔹 Check if product exists
-    const product = await Product.findById(id);
-    if (!product) {
-        return res.status(404).json({ message: 'Product not found' });
-    }
-
-    req.product = product; // Store product in request for later use in updateProduct
+export const updateFileCheck = (req, res, next) => {
 
     const file = req.files?.image;
-    if (!file) return next(); // No image provided, move to next middleware
-
-    if (!imageTypes.includes(file.mimetype)) {
-        return res.status(400).json({ message: 'Provide a valid image type' });
-    }
-
+    if (!file) return next();
+  
+    
+    if (!imageTypes.includes(file.mimetype)) return res.status(400).json({ message: 'please provide a valid image' });
     const imagePath = `/${uuidv4()}-${file.name}`;
-
-    // 🔹 Move image only if product is valid
-    try {
-        await file.mv(`./uploads${imagePath}`);
-        req.imagePath = imagePath;
-        return next();
-    } catch (err) {
-        return res.status(500).json({ message: `Error uploading image: ${err}` });
-    }
-};
+  
+    file.mv(`./uploads${imagePath}`, (err) => {
+      if (err) return res.status(400).json({ message: `${err}` });
+      req.imagePath = imagePath;
+      return next();
+    });
+  
+    // console.log('received:', file);
+    // console.log('file type:', file?.mimetype);
+  
+  }
