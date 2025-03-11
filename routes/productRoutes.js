@@ -9,11 +9,11 @@ const router = express.Router();
 
 router.route('/')
     .get(getAllProduct)
-    .post(validate.body(productSchema), fileCheck, addProduct);
+    .post(adminCheck, fileCheck, validate.body(productSchema), authCheck, addProduct);
 
 router.route('/:id')
     .get(getProduct)
-    .patch(updateFileCheck, updateProduct)
+    .patch(authCheck, adminCheck, updateFileCheck, updateProduct)
     .delete(authCheck, adminCheck, removeProduct);
 
 export default router;
