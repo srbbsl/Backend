@@ -2,7 +2,12 @@ import { Order } from "../model/Order.js";
 
 
 export const getAllOrder = async (req, res) => {
-
+    try {
+        const orders = await Order.find({}).sort('createdAt: -1');
+        return res.status(200).json(orders);
+    } catch (err) {
+        return res.status(400).json({ message: `${err}` });
+    }
 };
 
 export const getorderById = async (req, res) => {
@@ -10,7 +15,11 @@ export const getorderById = async (req, res) => {
 };
 
 export const getOrderByUser = async (req, res) => {
+    try {
+         
+    } catch (err) {
 
+    }
 };
 
 export const createOrder = async (req, res) => {
