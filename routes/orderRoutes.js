@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route('/').get(authCheck, adminCheck, getAllOrder).post(authCheck, createOrder);
 router.route('/users/:id').get(authCheck, getOrderByUser);
-router.route('/:id').get(authCheck, getorderById);
+router.route('/:id').get(getorderById);
 
 
 export default router;
