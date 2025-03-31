@@ -5,10 +5,11 @@ import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/ecommerce').then((val) => {
-    app.listen(5000, () => {
+app.listen(5000, () => {
         console.log('Server is running');
     });
+
+mongoose.connect('mongodb+srv://admin:admin@cluster0.j5rgs.mongodb.net/ecommerce').then((val) => { 
     console.log('Database connected')
 }).catch((err) => {
     console.log(err);
