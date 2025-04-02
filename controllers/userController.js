@@ -16,14 +16,16 @@ export const userLogin = async (req, res) => {
             return res.status(401).json({message: 'invalid password'})
 
         const token = jwt.sign({
-            id: isExist._id
+            userId: isExist._id,
+            role: isExist.role,
         }, 'secret')
 
         return res.status(200).json({ 
             message: 'login successfully',
             data: {
                 token,
-                email: isExist.email,
+                userId: isExist._id,
+                role: isExist.role,
             }
         });
     } catch (err) {
